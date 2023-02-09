@@ -1,0 +1,16 @@
+services:
+  web:
+    image: nginx
+    volumes:
+      - ./templates:/etc/nginx/templates
+      - ./auth/htpasswd:/etc/nginx/registry_users
+    ports:
+      - "8080:80"
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+  registry:
+    restart: always
+    image: registry:2
+    volumes:
+      - ./data:/var/lib/registry
